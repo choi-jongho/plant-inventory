@@ -1,16 +1,16 @@
 <?php
-session_start();
-include 'db.php';
-include 'navbar.php';
-include 'auth.php';
-checkLogin();
+    session_start();
+    include 'db.php';
+    include 'navbar.php';
+    include 'auth.php';
+    checkLogin();
 
-$notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
-$messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
-unset($_SESSION['message']);
-unset($_SESSION['message_type']);
+    $notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
+    $messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
+    unset($_SESSION['message']);
+    unset($_SESSION['message_type']);
 
-$result = $conn->query("SELECT * FROM category");
+    $result = $conn->query("SELECT * FROM category");
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +75,6 @@ $result = $conn->query("SELECT * FROM category");
             padding: 12px 0;
             margin-top: auto;
         }
-        /* Add this to your existing <style> section */
         .notification {
             position: fixed;
             top: 20px;
@@ -115,8 +114,6 @@ $result = $conn->query("SELECT * FROM category");
                 opacity: 1;
             }
         }
-
-        /* Alternative: If you prefer a banner-style notification at the top */
         .notification-banner {
             background-color: #28a745;
             color: white;
@@ -162,8 +159,6 @@ $result = $conn->query("SELECT * FROM category");
             </div>
         </div>
 
-
-
         <div class="table-responsive">
             <table class="table table-bordered text-center">
                 <thead>
@@ -190,7 +185,6 @@ $result = $conn->query("SELECT * FROM category");
     </div>
 </main>
 
-<!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <form id="deleteForm" action="delete_category.php" method="POST" class="modal-content">
@@ -225,7 +219,6 @@ $result = $conn->query("SELECT * FROM category");
         }
     });
 
-        // Live search for category table
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("keyup", function () {
         const filter = searchInput.value.toLowerCase();

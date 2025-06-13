@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $type = $_POST['transaction_type'];
     $quantity = (int)$_POST['quantity'];
 
-    // Validate input
     if ($plantID <= 0 || $quantity <= 0) {
         $_SESSION['message'] = "Invalid plant ID or quantity.";
         $_SESSION['message_type'] = 'error';
@@ -26,10 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Start transaction
         $conn->begin_transaction();
 
-        // Get current inventory quantity using prepared statement - FIXED COLUMN NAME
         $stmt = $conn->prepare("SELECT inv_quantity FROM inventory WHERE PlantID = ?");
         $stmt->bind_param("i", $plantID);
         $stmt->execute();
@@ -42,13 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($type === 'purchase') {
-            // Insert transaction record - FIXED COLUMN NAME
             $stmt = $conn->prepare("INSERT INTO transactions (PlantID, TransactionType, trans_quantity) VALUES (?, ?, ?)");
             $stmt->bind_param("isi", $plantID, $type, $quantity);
             $stmt->execute();
             $stmt->close();
 
-            // Update inventory - FIXED COLUMN NAME
             $stmt = $conn->prepare("UPDATE inventory SET inv_quantity = inv_quantity + ?, LastUpdated = NOW() WHERE PlantID = ?");
             $stmt->bind_param("ii", $quantity, $plantID);
             $stmt->execute();
@@ -62,13 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("Not enough stock for distribution. Available: " . $inventory['inv_quantity']);
             }
 
-            // Insert transaction record - FIXED COLUMN NAME
             $stmt = $conn->prepare("INSERT INTO transactions (PlantID, TransactionType, trans_quantity) VALUES (?, ?, ?)");
             $stmt->bind_param("isi", $plantID, $type, $quantity);
             $stmt->execute();
             $stmt->close();
 
-            // Update inventory - FIXED COLUMN NAME
             $stmt = $conn->prepare("UPDATE inventory SET inv_quantity = inv_quantity - ?, LastUpdated = NOW() WHERE PlantID = ?");
             $stmt->bind_param("ii", $quantity, $plantID);
             $stmt->execute();
@@ -78,11 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['message_type'] = 'success';
         }
 
-        // Commit transaction
         $conn->commit();
         
     } catch (Exception $e) {
-        // Rollback transaction on error
         $conn->rollback();
         $_SESSION['message'] = "Error: " . htmlspecialchars($e->getMessage()) . "";
     }
@@ -91,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Load plant options using prepared statement
 try {
     $plants = $conn->query("SELECT PlantID, Name FROM plants ORDER BY Name");
     if (!$plants) {
@@ -193,7 +183,6 @@ try {
 </main>
 
 <script>
-// Add client-side validation
 document.getElementById('transactionForm')?.addEventListener('submit', function(e) {
     const plantId = document.getElementById('plant_id').value;
     const transactionType = document.getElementById('transaction_type').value;

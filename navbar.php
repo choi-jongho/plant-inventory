@@ -1,4 +1,3 @@
-<!-- navbar.php -->
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #537D5D;">
     <div class="container">
         <a class="navbar-brand" href="dashboard.php">🌿 Plant Inventory</a>

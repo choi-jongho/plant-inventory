@@ -115,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn blue">Update Inventory</button>
                 <button type="button" class="btn blue btn-secondary" onclick="window.location.href='manage_inventory.php'">Cancel</button>
             </div>
-
         </form>
     </div>
 </main>
@@ -123,3 +122,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'footer.php'; ?>
 </body>
 </html>
+

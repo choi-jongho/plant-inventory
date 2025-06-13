@@ -4,8 +4,8 @@ include 'db.php';
 include 'auth.php';
 checkLogin();
 
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+if (isset($_POST['delete_id'])) {
+    $id = intval($_POST['delete_id']);
     $stmt = $conn->prepare("DELETE FROM category WHERE category_id = ?");
     $stmt->bind_param("i", $id);
 

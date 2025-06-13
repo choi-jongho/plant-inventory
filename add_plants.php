@@ -5,17 +5,14 @@ include 'navbar.php';
 include 'auth.php';
 checkLogin();
 
-// Load categories
 $categories = [];
 $res = $conn->query("SELECT category_id, category_name FROM category ORDER BY category_name");
 while ($r = $res->fetch_assoc()) $categories[] = $r;
 
-// Load suppliers
 $suppliers = [];
 $res = $conn->query("SELECT SupplierID, Name FROM suppliers ORDER BY Name");
 while ($r = $res->fetch_assoc()) $suppliers[] = $r;
 
-// Handle add supplier
 if (isset($_POST['add_supplier'])) {
     $supplierName = $conn->real_escape_string($_POST['supplier_name']);
     $contactEmail = $conn->real_escape_string($_POST['supplier_email']);
@@ -37,7 +34,6 @@ if (isset($_POST['add_supplier'])) {
     }
 }
 
-// Handle add plant
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['add_supplier'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $scientificName = $conn->real_escape_string($_POST['scientific_name']);
@@ -259,7 +255,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['add_supplier'])) {
         </div>
     </div>
 
-    <!-- Add Supplier Modal -->
     <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form method="POST">

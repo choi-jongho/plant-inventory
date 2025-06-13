@@ -33,11 +33,8 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Category</title>
-    <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-      <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
             --primary-dark-green: #537D5D;
@@ -123,8 +120,6 @@ $stmt->close();
             </form>
         </div>
     </main>
-
-    <!-- Sticky Footer -->
     <footer>
         <div class="container">
             <small>&copy; <?= date('Y') ?> Plant Inventory System. All rights reserved.</small>
@@ -132,3 +127,4 @@ $stmt->close();
     </footer>
 </body>
 </html>
+

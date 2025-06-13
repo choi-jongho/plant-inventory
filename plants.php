@@ -1,23 +1,23 @@
 <?php
 session_start();
-include 'db.php';
-include 'navbar.php';
-include 'auth.php';
-checkLogin();
+    include 'db.php';
+    include 'navbar.php';
+    include 'auth.php';
+    checkLogin();
 
-$notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
-$messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
-unset($_SESSION['message']);
-unset($_SESSION['message_type']);
+    $notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
+    $messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
+    unset($_SESSION['message']);
+    unset($_SESSION['message_type']);
 
-$sql = "SELECT plants.*, category.category_name,
-        COALESCE(SUM(inventory.inv_quantity), 0) AS total_quantity
-        FROM plants
-        LEFT JOIN category ON plants.category_id = category.category_id
-        LEFT JOIN inventory ON plants.PlantID = inventory.PlantID
-        GROUP BY plants.PlantID
-        ORDER BY plants.PlantID DESC";
-$result = $conn->query($sql);
+    $sql = "SELECT plants.*, category.category_name,
+            COALESCE(SUM(inventory.inv_quantity), 0) AS total_quantity
+            FROM plants
+            LEFT JOIN category ON plants.category_id = category.category_id
+            LEFT JOIN inventory ON plants.PlantID = inventory.PlantID
+            GROUP BY plants.PlantID
+            ORDER BY plants.PlantID DESC";
+    $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -34,29 +34,24 @@ $result = $conn->query($sql);
             --secondary-light-green: #9EBC8A;
             --accent-beige: #D2D0A0;
         }
-
         html, body {
             height: 100%;
             margin: 0;
             display: flex;
             flex-direction: column;
         }
-
         .wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-
         main {
             flex: 1;
         }
-
         body {
             background-color: var(--accent-beige);
             font-family: 'Segoe UI', sans-serif;
         }
-
         .notification {
             position: fixed;
             top: 15px;
@@ -66,23 +61,19 @@ $result = $conn->query($sql);
             z-index: 9999;
             animation: fadeOut 5s forwards;
         }
-
         @keyframes fadeOut {
             0% { opacity: 1; }
             90% { opacity: 1; }
             100% { opacity: 0; display: none; }
         }
-
         .table thead {
             background-color: var(--primary-green);
             color: white;
         }
-
         .card-header {
             background-color: var(--primary-dark-green);
             color: white;
         }
-
         .plant-image {
             width: 60px;
             height: 60px;
@@ -90,7 +81,6 @@ $result = $conn->query($sql);
             object-fit: cover;
             border: 2px solid #ddd;
         }
-
         .no-image-placeholder,
         .image-error {
             width: 60px;
@@ -102,31 +92,26 @@ $result = $conn->query($sql);
             font-size: 10px;
             text-align: center;
         }
-
         .no-image-placeholder {
             background-color: #f8f9fa;
             border: 2px dashed #ddd;
             color: #6c757d;
         }
-
         .image-error {
             background-color: #ffebee;
             border: 2px solid #ffcdd2;
             color: #d32f2f;
         }
-
         .btn-add-plant {
             background-color: var(--primary-green);
             border-color: var(--primary-green);
             color: white;
         }
-
         .btn-add-plant:hover {
             background-color: var(--secondary-light-green);
             border-color: var(--secondary-light-green);
             color: var(--primary-dark-green);
         }
-
         footer {
             background-color: var(--primary-dark-green);
             color: white;
@@ -158,7 +143,6 @@ $result = $conn->query($sql);
         </div>
     <?php endif; ?>
 
-    <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -257,9 +241,6 @@ $result = $conn->query($sql);
         <small>&copy; <?= date('Y') ?> Plant Inventory System. All rights reserved.</small>
     </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- The only real change is within the script tag at the bottom -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

@@ -1,30 +1,29 @@
 <?php
 session_start();
-include 'db.php';
-include 'navbar.php';
-include 'auth.php';
-checkLogin();
+    include 'db.php';
+    include 'navbar.php';
+    include 'auth.php';
+    checkLogin();
 
-$notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
-$messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
-unset($_SESSION['message']);
-unset($_SESSION['message_type']);
+    $notificationMessage = isset($_SESSION['message']) ? $_SESSION['message'] : "";
+    $messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 'success';
+    unset($_SESSION['message']);
+    unset($_SESSION['message_type']);
 
-try {
-    // FIXED: Using correct column name 'trans_quantity' instead of 'Quantity'
-    $sql = "SELECT t.TransactionID, t.PlantID, p.Name AS PlantName, t.TransactionType, t.trans_quantity, t.TransactionDate
-            FROM transactions t
-            LEFT JOIN plants p ON t.PlantID = p.PlantID
-            ORDER BY t.TransactionDate DESC";
-    $result = $conn->query($sql);
-    
-    if (!$result) {
-        throw new Exception("Database query failed: " . $conn->error);
+    try {
+        $sql = "SELECT t.TransactionID, t.PlantID, p.Name AS PlantName, t.TransactionType, t.trans_quantity, t.TransactionDate
+                FROM transactions t
+                LEFT JOIN plants p ON t.PlantID = p.PlantID
+                ORDER BY t.TransactionDate DESC";
+        $result = $conn->query($sql);
+        
+        if (!$result) {
+            throw new Exception("Database query failed: " . $conn->error);
+        }
+    } catch (Exception $e) {
+        $notificationMessage = "Error: " . htmlspecialchars($e->getMessage()) . "";
+        $result = false;
     }
-} catch (Exception $e) {
-    $notificationMessage = "Error: " . htmlspecialchars($e->getMessage()) . "";
-    $result = false;
-}
 ?>
 
 <!DOCTYPE html>
@@ -80,8 +79,6 @@ try {
             color: #537D5D;
             margin-bottom: 1rem;
         }
-        /* Add this to your existing <style> section */
-
         .notification {
             position: fixed;
             top: 20px;
@@ -121,8 +118,6 @@ try {
                 opacity: 1;
             }
         }
-
-        /* Alternative: If you prefer a banner-style notification at the top */
         .notification-banner {
             background-color: #28a745;
             color: white;

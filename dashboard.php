@@ -1,18 +1,17 @@
 <?php
 session_start();
-include 'db.php'; // Include database connection
-include 'auth.php';
-checkLogin();
+  include 'db.php';
+  include 'auth.php';
+  checkLogin();
 
-// Get counts from DB
-$plantCountQuery = $conn->query("SELECT COUNT(*) as total FROM plants");
-$plantCount = $plantCountQuery->fetch_assoc()['total'];
+  $plantCountQuery = $conn->query("SELECT COUNT(*) as total FROM plants");
+  $plantCount = $plantCountQuery->fetch_assoc()['total'];
 
-$categoryCountQuery = $conn->query("SELECT COUNT(*) as total FROM category");
-$categoryCount = $categoryCountQuery->fetch_assoc()['total'];
+  $categoryCountQuery = $conn->query("SELECT COUNT(*) as total FROM category");
+  $categoryCount = $categoryCountQuery->fetch_assoc()['total'];
 
-$supplierCountQuery = $conn->query("SELECT COUNT(*) as total FROM suppliers");
-$supplierCount = $supplierCountQuery->fetch_assoc()['total'];
+  $supplierCountQuery = $conn->query("SELECT COUNT(*) as total FROM suppliers");
+  $supplierCount = $supplierCountQuery->fetch_assoc()['total'];
 ?>
 
 <!DOCTYPE html>
@@ -24,14 +23,13 @@ $supplierCount = $supplierCountQuery->fetch_assoc()['total'];
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <style>
-  /* Reset and base */
   * {
     box-sizing: border-box;
   }
   body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #d1d1b8; /* light muted olive */
+    background-color: #d1d1b8; 
     color: #324d2f;
     min-height: 100vh;
     display: flex;
@@ -47,16 +45,14 @@ $supplierCount = $supplierCountQuery->fetch_assoc()['total'];
     border: none;
     padding: 0;
   }
-  /* Container grid for main layout */
   .app {
     display: flex;
     flex: 1;
     min-height: 0;
   }
 
-  /* Sidebar */
   .sidebar {
-    background-color: #4a6b35; /* dark olive green */
+    background-color: #4a6b35;
     color: #b8cdb0;
     display: flex;
     flex-direction: column;
@@ -379,7 +375,7 @@ $supplierCount = $supplierCountQuery->fetch_assoc()['total'];
   </div>
 
   <script>
-    // Toggle sidebar on mobile
+
     const menuToggle = document.querySelector('.menu-toggle');
     const sidebar = document.getElementById('sidebar');
     menuToggle.addEventListener('click', () => {
@@ -388,7 +384,7 @@ $supplierCount = $supplierCountQuery->fetch_assoc()['total'];
       sidebar.classList.toggle('show');
     });
 
-    // Close sidebar on outside click (mobile)
+
     document.addEventListener('click', (e) => {
       if(window.innerWidth > 767) return;
       if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {

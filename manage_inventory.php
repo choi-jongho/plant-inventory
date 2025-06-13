@@ -10,7 +10,6 @@ $messageType = isset($_SESSION['message_type']) ? $_SESSION['message_type'] : 's
 unset($_SESSION['message']);
 unset($_SESSION['message_type']);
 
-// Fetch inventory data
 $sql = "SELECT 
             i.InventoryID, 
             p.Name AS plant_name, 
@@ -83,8 +82,6 @@ $result = $conn->query($sql);
         .btn-danger {
             background-color: #C0392B;
         }
-        /* Add this to your existing <style> section */
-
         .notification {
             position: fixed;
             top: 20px;
@@ -100,20 +97,16 @@ $result = $conn->query($sql);
             word-wrap: break-word;
             animation: slideInRight 0.3s ease-out;
         }
-
         .notification.error {
             background-color: #dc3545;
         }
-
         .notification.warning {
             background-color: #ffc107;
             color: #212529;
         }
-
         .notification.info {
             background-color: #17a2b8;
         }
-
         @keyframes slideInRight {
             from {
                 transform: translateX(100%);
@@ -124,8 +117,6 @@ $result = $conn->query($sql);
                 opacity: 1;
             }
         }
-
-        /* Alternative: If you prefer a banner-style notification at the top */
         .notification-banner {
             background-color: #28a745;
             color: white;
@@ -197,12 +188,9 @@ $result = $conn->query($sql);
                             <td><?= htmlspecialchars($row['LastUpdated']) ?></td>
                             <td>
                                 <a href="edit_inventory.php?id=<?= $row['InventoryID'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <!-- Delete Button triggers Modal -->
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $row['InventoryID'] ?>">
                                     Delete
                                 </button>
-
-                                <!-- Modal -->
                                 <div class="modal fade" id="deleteModal<?= $row['InventoryID'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?= $row['InventoryID'] ?>" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -234,7 +222,6 @@ $result = $conn->query($sql);
 <?php include 'footer.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Hide notification after 2 seconds
     document.addEventListener('DOMContentLoaded', function () {
         const notif = document.getElementById('notification-message');
         if (notif) {
@@ -242,13 +229,10 @@ $result = $conn->query($sql);
                 notif.style.display = 'none';
             }, 2000);
         }
-
-        // Live search filtering
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("keyup", function () {
             const filter = searchInput.value.toLowerCase();
             const rows = document.querySelectorAll("table tbody tr");
-
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(filter) ? "" : "none";

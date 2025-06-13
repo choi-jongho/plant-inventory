@@ -4,7 +4,6 @@ include 'db.php';
 include 'auth.php';
 checkLogin();
 
-// Handle deletion request
 if (isset($_POST['delete_id'])) {
     $plantID = $_POST['delete_id'];
 
@@ -20,7 +19,7 @@ if (isset($_POST['delete_id'])) {
         $_SESSION['message_type'] = 'error';
     }
 
-    header("Location: plants.php"); // Redirect after deletion
+    header("Location: plants.php");
     exit();
 }
 ?>

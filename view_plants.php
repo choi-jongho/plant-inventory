@@ -1,55 +1,53 @@
 <?php
-session_start();
-include 'db.php';
-include 'navbar.php';
-include 'auth.php';
-checkLogin();
+    session_start();
+    include 'db.php';
+    include 'navbar.php';
+    include 'auth.php';
+    checkLogin();
 
-// Get plant ID from URL parameter
-$plantID = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    $plantID = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-if ($plantID <= 0) {
-    $_SESSION['message'] = "Invalid plant ID provided.";
-    $_SESSION['message_type'] = 'error';
-    header('Location: plants.php');
-    exit();
-}
+    if ($plantID <= 0) {
+        $_SESSION['message'] = "Invalid plant ID provided.";
+        $_SESSION['message_type'] = 'error';
+        header('Location: plants.php');
+        exit();
+    }
 
-// Updated SQL to JOIN category table and get total inventory quantity
-$sql = "
-    SELECT 
-        plants.*, 
-        category.category_name,
-        COALESCE(SUM(inventory.inv_quantity), 0) as total_inventory_quantity
-    FROM 
-        plants 
-    LEFT JOIN 
-        category 
-    ON 
-        plants.category_id = category.category_id 
-    LEFT JOIN
-        inventory
-    ON
-        plants.PlantID = inventory.PlantID
-    WHERE 
-        plants.PlantID = ?
-    GROUP BY
-        plants.PlantID
-";
+    $sql = "
+        SELECT 
+            plants.*, 
+            category.category_name,
+            COALESCE(SUM(inventory.inv_quantity), 0) as total_inventory_quantity
+        FROM 
+            plants 
+        LEFT JOIN 
+            category 
+        ON 
+            plants.category_id = category.category_id 
+        LEFT JOIN
+            inventory
+        ON
+            plants.PlantID = inventory.PlantID
+        WHERE 
+            plants.PlantID = ?
+        GROUP BY
+            plants.PlantID
+    ";
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $plantID);
-$stmt->execute();
-$result = $stmt->get_result();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $plantID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if ($result->num_rows === 0) {
-    $_SESSION['message'] = "Plant not found.";
-    $_SESSION['message_type'] = 'error';
-    header('Location: plants.php');
-    exit();
-}
+    if ($result->num_rows === 0) {
+        $_SESSION['message'] = "Plant not found.";
+        $_SESSION['message_type'] = 'error';
+        header('Location: plants.php');
+        exit();
+    }
 
-$plant = $result->fetch_assoc();
+    $plant = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
