@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2025 at 01:00 AM
+-- Generation Time: Jun 13, 2025 at 03:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,13 +37,13 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(11, 'Herb'),
 (12, 'Tree'),
 (13, 'Shrub'),
 (14, 'Vegetable'),
 (15, 'Fruit'),
 (17, 'Succulent'),
-(18, 'Foliage');
+(18, 'Foliage'),
+(19, 'Herb');
 
 -- --------------------------------------------------------
 
@@ -64,10 +64,12 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`InventoryID`, `PlantID`, `SupplierID`, `inv_quantity`, `LastUpdated`) VALUES
-(3, 13, 3, 100, '2025-06-13 03:20:56'),
-(5, 14, 2, 80, '2025-06-13 03:21:42'),
-(14, 24, 3, 100, '2025-06-13 04:42:46'),
-(20, 25, 4, 100, '2025-06-13 05:15:18');
+(3, 13, 3, 90, '2025-06-13 21:14:24'),
+(14, 24, 3, 200, '2025-06-13 20:59:26'),
+(20, 25, 4, 100, '2025-06-13 05:15:18'),
+(24, 25, 4, 100, '2025-06-13 20:55:13'),
+(25, 14, 5, 100, '2025-06-13 21:04:07'),
+(26, 26, 3, 100, '2025-06-13 21:07:35');
 
 -- --------------------------------------------------------
 
@@ -93,7 +95,8 @@ INSERT INTO `plants` (`PlantID`, `Name`, `ScientificName`, `Location`, `LastUpda
 (13, 'Snake Plant', 'Dracaena trifasciata', 'Tacloban City', '2025-06-12 21:20:43', 0x75706c6f6164732f313734393733333132325f536e616b655f506c616e745f2853616e73657669657269615f74726966617363696174615f274c617572656e74696927292e6a7067, 17),
 (14, 'Cactus', 'Cactaceae', 'Tacloban City', '2025-06-12 21:22:01', 0x75706c6f6164732f313734393733333134385f696d616765732e6a7067, 17),
 (24, 'Jackfruit', 'Artocarpus heterophyllus', 'Tacloban City', '2025-06-12 22:59:14', 0x75706c6f6164732f313734393736303936365f696d61676573202833292e6a7067, 12),
-(25, 'Jade Plant', 'Crassula ovata', 'Ormoc City', '2025-06-13 00:40:21', 0x75706c6f6164732f313734393736323839375f696d61676573202834292e6a7067, 17);
+(25, 'Jade Plant', 'Crassula ovata', 'Catbalogan City', '2025-06-13 14:55:13', 0x75706c6f6164732f313734393736323839375f696d61676573202834292e6a7067, 17),
+(26, 'Bamboo', 'Phyllostachys aurea', 'Borongan City', '2025-06-13 21:07:34', 0x75706c6f6164732f313734393832303035345f696d61676573202835292e6a7067, 12);
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,7 @@ INSERT INTO `suppliers` (`SupplierID`, `Name`, `ContactEmail`, `PhoneNumber`) VA
 (3, 'MYZ Corporation', 'myz.corp@gmail.com', '+639089075432'),
 (4, 'XYZ Inc.', 'xyzinc@gmail.com', '+639662985421'),
 (5, 'ABCD Enterprise', 'abc.nayeon@gmail.com', '+639662985422'),
-(7, 'GAR Corp.', 'corp.gar@gmail.com', '+639876543210');
+(7, 'GAR Corps.', 'corps.gar@gmail.com', '+639876543210');
 
 -- --------------------------------------------------------
 
@@ -149,7 +152,9 @@ INSERT INTO `transactions` (`TransactionID`, `PlantID`, `TransactionType`, `tran
 (11, 14, 'purchase', 20, '2025-06-13 03:18:13'),
 (12, 14, 'distribution', 10, '2025-06-13 03:18:54'),
 (13, 13, 'distribution', 25, '2025-06-13 03:19:18'),
-(14, 14, 'distribution', 20, '2025-06-13 03:21:42');
+(14, 14, 'distribution', 20, '2025-06-13 03:21:42'),
+(24, 24, 'purchase', 100, '2025-06-13 20:59:26'),
+(25, 13, 'distribution', 10, '2025-06-13 21:14:24');
 
 -- --------------------------------------------------------
 
@@ -224,31 +229,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `InventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `InventoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `plants`
 --
 ALTER TABLE `plants`
-  MODIFY `PlantID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `PlantID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `SupplierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `SupplierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `user`
