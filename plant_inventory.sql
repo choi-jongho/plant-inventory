@@ -151,28 +151,6 @@ INSERT INTO `transactions` (`TransactionID`, `PlantID`, `TransactionType`, `tran
 (13, 13, 'distribution', 25, '2025-06-13 03:19:18'),
 (14, 14, 'distribution', 20, '2025-06-13 03:21:42');
 
---
--- Triggers `transactions`
---
-DELIMITER $$
-CREATE TRIGGER `update_plants_quantity` AFTER INSERT ON `transactions` FOR EACH ROW BEGIN
-    -- If the transaction is a purchase, increase the plant quantity
-    IF NEW.TransactionType = 'purchase' THEN
-        UPDATE Plants 
-        SET Quantity = Quantity + NEW.Quantity
-        WHERE PlantID = NEW.PlantID;
-    END IF;
-
-    -- If the transaction is a distribution, decrease the plant quantity
-    IF NEW.TransactionType = 'distribution' THEN
-        UPDATE Plants 
-        SET Quantity = Quantity - NEW.Quantity
-        WHERE PlantID = NEW.PlantID;
-    END IF;
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
